@@ -1,12 +1,22 @@
 open System
 open FSharpPlus
 open Rant
+(* 
+Might need to re-export (unpack) the dictionary to see what data is in there. 
+
+Generate an Inform 7 game, then query the game, then use that advanced taxonomy to generate another game
+hop between n-gram markoved corpora mid generation chain
+
+generatean inform game using predicates extractedfrom a given (small) corpus. 
+Extract terms and some simple relations.
+*)
 // let RANTIONARY_FILE = "Rantionary-4.0.0.rantpkg"
 let RANTIONARY_FILE = "Rantionry-3.0.17.rantpkg"
 // #r "nuget: Rant";;
 // open Rant . . . 
 // Ctrl+P -> FSI: Send file
-(* ::=x for variable storage i.e.
+(*
+  ::=x for variable storage i.e.
 <noun::=a> <noun::=a.pl>
 
 . . . <filler> . . . 
@@ -52,7 +62,6 @@ R "  [$[greet:name]: {hello|greetings}, [arg:name]{.|...|!}] [case:sentence]{[$g
 variables, tough I'm not sure how they're useful
 
 R "[case:sentence]{[rs:4;\s. . .\s ]{the <noun-surface ? `.*a.*`::!A>}} {each|all} <adj-appearance> . . .  {each|all} <verb-intransitive.ing> [x:P;locked]{from| past} [x:P;locked]{{beyond|far|}|{this|here}}";; 
-
 {[rs:4;\s. . .\s ]{the <noun-surface ? `.*a.*`::!A>}} <= !A guarantees different word, but each will match the regex.
 #r "nuget:Rant";;
 open Rant;;
@@ -61,12 +70,12 @@ r.LoadPackage("Rantionary-3.0.17.rantpkg")
 let R x = r.Do(RantProgram.CompileString(x))
 R "" 
 R "The [x:A:locked]{||(.7) <adjective>} [x:A:locked]{ which is <adj>|, <adj>|}"
-R "The [x:A;locked]{||<adj>} <noun> [x:A;locked]{ which is <adj>|, <adj>|}"
-"He came with his <adj-appearance ? `l.*`::=a> <noun-weapon ? `l.*`> his <adj::=a> <noun-tool> wrapped in <adj::=a> <noun-surface> 
-val it : RantOutput =concept 
-
+*)
+// "He came with his <adj-appearance ? `l.*`::=a> <noun-weapon ? `l.*`> his <adj::=a> <noun-tool> wrapped in <adj::=a> <noun-surface> 
+(*
+// R "The [x:A;locked]{||<adj>} <noun> [x:A;locked]{ which is <adj>|, <adj>|}"
 might be a way to regex on the pronounciation? 
-"His <adj-appearance ? `^l.*`::=a> <noun-tool ? `^l[^\s]+$`> his <adj::=a> <noun-weapon ? `^l.*`>")
+"His <adj-appearance ? `^l.*`::=a> <noun-tool ? `^l[^\s]+$`> his <adj::=a> <noun-weapon ? `^l.*`>"
 Alliteration:
 [qname:word1;adj]                   # Table name
 [qcf:word1;appearance]              # Filter for appearance-related adjectives
@@ -80,8 +89,8 @@ lfilter built in function
 
 {(weight) a | (weight2) b} => {(.01)A|(.99)B}
 
-R "[x:foo;locked]{Foo|Bar}\s [x:foo;locked]{Foo|Bar}"
- *)
+R "[x:foo;locked]{Foo|Bar}\s [x:foo;locked]{Foo|Bar}" 
+*)
 let from whom =
     let s = head (map string [|2;3;4;5|])
     sprintf "from %s" s
